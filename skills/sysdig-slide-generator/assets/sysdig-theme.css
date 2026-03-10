@@ -271,6 +271,7 @@
    LAYOUT: Agenda
    ============================================================ */
 .slide-agenda {
+  display: block !important;
   background-color: var(--sysdig-lumin) !important;
   color: var(--sysdig-black);
 }
@@ -314,6 +315,7 @@
    LAYOUT: One Column (Light)
    ============================================================ */
 .slide-one-col {
+  display: block !important;
   background-color: var(--sysdig-white) !important;
   color: var(--sysdig-black);
 }
@@ -333,6 +335,7 @@
    LAYOUT: One Column (Dark)
    ============================================================ */
 .slide-one-col-dark {
+  display: block !important;
   background-color: var(--sysdig-gray-70) !important;
   color: var(--sysdig-white);
 }
@@ -422,6 +425,7 @@
    LAYOUT: Two Column
    ============================================================ */
 .slide-two-col {
+  display: block !important;
   background-color: var(--sysdig-white) !important;
 }
 
@@ -445,6 +449,7 @@
    LAYOUT: Three Column
    ============================================================ */
 .slide-three-col {
+  display: block !important;
   background-color: var(--sysdig-white) !important;
 }
 
@@ -519,6 +524,7 @@
    LAYOUT: Full Table
    ============================================================ */
 .slide-table-full {
+  display: block !important;
   background-color: var(--sysdig-white) !important;
 }
 
