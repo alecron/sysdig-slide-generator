@@ -1,0 +1,12 @@
+{
+  "name": "sysdig-slide-generator",
+  "version": "0.1.0",
+  "description": "Generate Sysdig-branded reveal.js presentations from reference materials using AI",
+  "author": {
+    "name": "Alejandro Magallon",
+    "url": "https://github.com/alecron"
+  },
+  "repository": "https://github.com/alecron/sysdig-slide-generator",
+  "license": "MIT",
+  "keywords": ["sysdig", "slides", "presentation", "reveal.js", "ai"]
+}

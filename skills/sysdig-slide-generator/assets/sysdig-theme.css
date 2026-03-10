@@ -1,0 +1,940 @@
+/* ============================================================
+   Sysdig Reveal.js Theme
+   Based on Sysdig Corporate Template (2024-2025)
+   ============================================================ */
+
+/* === Google Fonts (loaded in HTML <head>) === */
+/* Poppins: 300 (Light), 400 (Regular), 500 (Medium), 700 (Bold) */
+
+/* === Design Tokens === */
+:root {
+  /* Primary */
+  --sysdig-lumin: #BDF78B;
+  --sysdig-black: #000000;
+  --sysdig-white: #FFFFFF;
+
+  /* Gray Scale */
+  --sysdig-gray-10: #EAEBED;
+  --sysdig-gray-20: #BBBDBF;
+  --sysdig-gray-30: #8A8C8E;
+  --sysdig-gray-40: #626466;
+  --sysdig-gray-50: #535557;
+  --sysdig-gray-60: #3E4042;
+  --sysdig-gray-70: #2B2D30;
+  --sysdig-gray-80: #1E1E22;
+  --sysdig-gray-90: #121217;
+
+  /* Accent (diagrams only) */
+  --sysdig-blue: #00cbe2;
+  --sysdig-red: #ea5255;
+  --sysdig-yellow: #ffc069;
+  --sysdig-purple: #ae44c5;
+
+  /* Typography */
+  --sysdig-font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --slide-pad-y: 60px;
+  --slide-pad-x: 80px;
+  --card-radius: 16px;
+  --card-padding: 40px;
+
+  /* Reveal.js overrides */
+  --r-main-font: var(--sysdig-font);
+  --r-main-font-size: 20px;
+  --r-main-color: var(--sysdig-black);
+  --r-heading-font: var(--sysdig-font);
+  --r-heading-color: var(--sysdig-black);
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-heading-letter-spacing: -0.02em;
+  --r-heading-line-height: 1.2;
+  --r-background-color: var(--sysdig-white);
+  --r-link-color: var(--sysdig-blue);
+  --r-selection-background-color: rgba(189, 247, 139, 0.4);
+}
+
+/* === Base Slide === */
+.reveal .slides section {
+  padding: var(--slide-pad-y) var(--slide-pad-x);
+  text-align: left;
+  font-family: var(--sysdig-font);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.reveal .slides section * {
+  box-sizing: border-box;
+}
+
+/* === Typography === */
+.reveal h1 {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.reveal h2 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.reveal h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.reveal p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.text-light {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* === Lists === */
+.reveal ul, .reveal ol {
+  margin-left: 0;
+  padding-left: 40px;
+}
+
+.reveal ul li, .reveal ol li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.reveal ul ul {
+  padding-left: 40px;
+  margin-top: 8px;
+}
+
+.reveal ul ul li {
+  font-size: 0.9em;
+}
+
+.reveal ul ul ul li {
+  font-size: 0.85em;
+}
+
+/* Bullet styles per level */
+.reveal ul { list-style-type: disc; }
+.reveal ul ul { list-style-type: circle; }
+.reveal ul ul ul { list-style-type: square; }
+
+
+/* ============================================================
+   LAYOUT: Cover - Lumin
+   ============================================================ */
+.slide-cover-lumin {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-cover-lumin h1 {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.slide-cover-lumin .subtitle {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.slide-cover-lumin .logo {
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+
+/* ============================================================
+   LAYOUT: Cover - Dark with Chevrons
+   ============================================================ */
+.slide-cover-dark {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none'%3E%3Cpolygon points='100,80 280,300 100,520' fill='%233E4042' opacity='0.4'/%3E%3Cpolygon points='220,80 400,300 220,520' fill='%23535557' opacity='0.5'/%3E%3Cpolygon points='340,80 520,300 340,520' fill='%236E7A5A' opacity='0.6'/%3E%3Cpolygon points='460,80 640,300 460,520' fill='%2396C872' opacity='0.8'/%3E%3Cpolygon points='580,80 760,300 580,520' fill='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 50% 80%;
+}
+
+.slide-cover-dark h1 {
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--sysdig-white);
+  max-width: 55%;
+}
+
+.slide-cover-dark .logo {
+  font-size: 32px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--sysdig-white);
+  margin-bottom: 40px;
+}
+
+.slide-cover-dark .speaker-info {
+  margin-top: 40px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slide-cover-dark .speaker-info .name {
+  font-weight: 700;
+}
+
+.slide-cover-dark .speaker-info .title {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   LAYOUT: Cover - Dark with Clock
+   ============================================================ */
+.slide-cover-clock {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-cover-clock .clock-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-cover-clock .clock-wrapper svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-cover-clock h1 {
+  font-size: 72px;
+  color: var(--sysdig-lumin);
+  position: relative;
+  z-index: 1;
+}
+
+.slide-cover-clock .speaker-info {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   LAYOUT: Agenda
+   ============================================================ */
+.slide-agenda {
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-agenda h1 {
+  font-size: 44px;
+  margin-bottom: 40px;
+}
+
+.slide-agenda .agenda-list {
+  list-style: none;
+  padding: 0;
+  max-width: 60%;
+}
+
+.slide-agenda .agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.slide-agenda .agenda-item:last-child {
+  border-bottom: none;
+}
+
+.slide-agenda .agenda-number {
+  font-size: 48px;
+  font-weight: 300;
+  min-width: 60px;
+}
+
+.slide-agenda .agenda-text {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   LAYOUT: One Column (Light)
+   ============================================================ */
+.slide-one-col {
+  background-color: var(--sysdig-white) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-one-col h1 {
+  margin-bottom: 4px;
+}
+
+.slide-one-col h2 {
+  font-weight: 300;
+  color: var(--sysdig-gray-50);
+  margin-bottom: 32px;
+}
+
+
+/* ============================================================
+   LAYOUT: One Column (Dark)
+   ============================================================ */
+.slide-one-col-dark {
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-one-col-dark h1 {
+  color: var(--sysdig-white);
+}
+
+.slide-one-col-dark h2 {
+  font-weight: 300;
+  color: var(--sysdig-gray-20);
+}
+
+
+/* ============================================================
+   LAYOUT: Content + Featured Box
+   ============================================================ */
+.slide-content-featured {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-content-featured h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-content-featured .content-left {
+  /* bullets go here */
+}
+
+.slide-content-featured .content-right {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-content-featured .content-right h3 {
+  margin-bottom: 16px;
+}
+
+
+/* ============================================================
+   LAYOUT: Content + Quote
+   ============================================================ */
+.slide-content-quote {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-content-quote h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-content-quote .quote-card {
+  background: var(--sysdig-lumin);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.slide-content-quote .quote-card .quote-text {
+  font-size: 22px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-content-quote .quote-card .quote-attribution {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+
+/* ============================================================
+   LAYOUT: Two Column
+   ============================================================ */
+.slide-two-col {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-two-col h1 {
+  margin-bottom: 32px;
+}
+
+.slide-two-col .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.slide-two-col .columns h2 {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+
+/* ============================================================
+   LAYOUT: Three Column
+   ============================================================ */
+.slide-three-col {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-three-col h1 {
+  margin-bottom: 32px;
+}
+
+.slide-three-col .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+}
+
+.slide-three-col .columns h2 {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+
+/* ============================================================
+   LAYOUT: Right Side Image
+   ============================================================ */
+.slide-image-right {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-image-right .text-content h1 {
+  font-size: 40px;
+}
+
+.slide-image-right .text-content h2 {
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.slide-image-right .image-placeholder {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-image-right .image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+}
+
+
+/* ============================================================
+   LAYOUT: Table / Chart
+   ============================================================ */
+.slide-table {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  background-color: var(--sysdig-white) !important;
+}
+
+
+/* ============================================================
+   LAYOUT: Full Table
+   ============================================================ */
+.slide-table-full {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-table-full h1 {
+  margin-bottom: 8px;
+}
+
+.slide-table-full h2 {
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+
+/* ============================================================
+   TABLE COMPONENT
+   ============================================================ */
+.sysdig-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.sysdig-table thead th {
+  background: var(--sysdig-gray-70);
+  color: var(--sysdig-white);
+  font-weight: 700;
+  padding: 14px 18px;
+  text-align: left;
+  border: none;
+}
+
+.sysdig-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sysdig-gray-20);
+  vertical-align: top;
+}
+
+.sysdig-table tbody tr:nth-child(even) td {
+  background: var(--sysdig-gray-10);
+}
+
+/* Highlighted column (the "winning" column) */
+.sysdig-table .col-highlight {
+  background: var(--sysdig-lumin) !important;
+}
+
+.sysdig-table thead .col-highlight {
+  background: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+
+/* ============================================================
+   LAYOUT: UI Highlight
+   ============================================================ */
+.slide-ui-highlight {
+  display: grid !important;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-ui-highlight .screenshot-area {
+  background: var(--sysdig-gray-80);
+  border-radius: var(--card-radius);
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-ui-highlight .screenshot-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ============================================================
+   LAYOUT: Diagram + Quote
+   ============================================================ */
+.slide-diagram-quote {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 40px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-diagram-quote h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-diagram-quote .diagram-area {
+  /* for the diagram/infographic */
+}
+
+.slide-diagram-quote .sidebar-quote {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-diagram-quote .sidebar-quote .quote-text {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-diagram-quote .sidebar-quote .quote-attribution {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   LAYOUT: Section Dividers (Dark backgrounds with SVG patterns)
+   ============================================================ */
+.slide-divider-chevron,
+.slide-divider-diamond,
+.slide-divider-mountain,
+.slide-divider-gradient {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-divider-chevron h1,
+.slide-divider-diamond h1,
+.slide-divider-mountain h1,
+.slide-divider-gradient h1 {
+  color: var(--sysdig-lumin);
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.slide-divider-chevron h2,
+.slide-divider-diamond h2,
+.slide-divider-mountain h2,
+.slide-divider-gradient h2 {
+  color: var(--sysdig-white);
+  font-size: 36px;
+  font-weight: 300;
+}
+
+/* Chevron background */
+.slide-divider-chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='100,100 250,300 100,500' stroke='%233E4042' opacity='0.3'/%3E%3Cpolyline points='220,100 370,300 220,500' stroke='%23535557' opacity='0.5'/%3E%3Cpolyline points='340,100 490,300 340,500' stroke='%236E7A5A' opacity='0.6'/%3E%3Cpolyline points='460,100 610,300 460,500' stroke='%2396C872' opacity='0.8'/%3E%3Cpolyline points='580,100 730,300 580,500' stroke='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 50% 80%;
+}
+
+/* Diamond background */
+.slide-divider-diamond {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='3'%3E%3Crect x='300' y='50' width='200' height='200' rx='20' transform='rotate(45 400 150)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='450' y='100' width='180' height='180' rx='18' transform='rotate(45 540 190)' stroke='%23535557' opacity='0.4'/%3E%3Crect x='350' y='250' width='160' height='160' rx='16' transform='rotate(45 430 330)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='550' y='200' width='140' height='140' rx='14' transform='rotate(45 620 270)' fill='%23535557' opacity='0.5'/%3E%3Crect x='500' y='350' width='120' height='120' rx='12' transform='rotate(45 560 410)' fill='%23BDF78B' opacity='0.8'/%3E%3Crect x='650' y='50' width='100' height='100' rx='10' transform='rotate(45 700 100)' stroke='%23BDF78B' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 60% 100%;
+}
+
+/* Mountain background */
+.slide-divider-mountain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 400' fill='none' stroke-width='2'%3E%3Cpolyline points='0,350 200,200 400,300 600,150 800,280 1000,180 1200,320 1400,160 1600,290 1920,200' stroke='%233E4042' opacity='0.2'/%3E%3Cpolyline points='0,380 250,250 500,330 750,200 1000,310 1250,220 1500,340 1750,230 1920,280' stroke='%23535557' opacity='0.3'/%3E%3Cpolyline points='0,400 300,300 600,370 900,260 1200,350 1500,270 1920,350' stroke='%23BDF78B' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 40%;
+}
+
+/* Gradient blob background */
+.slide-divider-gradient {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2396C872' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23BDF78B' stop-opacity='0.9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='0,0 600,0 400,600 0,1080' fill='url(%23g)' opacity='0.7'/%3E%3Cpolygon points='1000,0 1920,0 1920,1080 1200,1080' fill='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  text-align: center;
+}
+
+
+/* ============================================================
+   LAYOUT: Quote (Lumin background)
+   ============================================================ */
+.slide-quote {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-quote .quote-card {
+  background: var(--sysdig-white);
+  border-radius: var(--card-radius);
+  padding: 60px 80px;
+  max-width: 75%;
+  position: relative;
+}
+
+.slide-quote .quote-card .sysdig-quote-icon {
+  position: absolute;
+  top: -24px;
+  left: 40px;
+}
+
+.slide-quote .quote-card .quote-text {
+  font-size: 28px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-quote .quote-card .quote-attribution {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 32px;
+}
+
+
+/* ============================================================
+   LAYOUT: Callout (Dark + Lumin variants)
+   ============================================================ */
+.slide-callout-dark {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-callout-dark .eyebrow {
+  color: var(--sysdig-lumin);
+}
+
+.slide-callout-dark h1 {
+  font-size: 60px;
+  font-weight: 400;
+  color: var(--sysdig-white);
+  max-width: 80%;
+}
+
+.slide-callout-lumin {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-callout-lumin .eyebrow {
+  color: var(--sysdig-black);
+}
+
+.slide-callout-lumin h1 {
+  font-size: 60px;
+  font-weight: 400;
+  color: var(--sysdig-black);
+  max-width: 80%;
+}
+
+
+/* ============================================================
+   LAYOUT: Closing
+   ============================================================ */
+.slide-closing {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-closing .logo {
+  font-size: 72px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.slide-closing .tagline {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+
+/* ============================================================
+   COMPONENT: Quote Icon
+   ============================================================ */
+.sysdig-quote-icon {
+  display: inline-block;
+  line-height: 0;
+}
+
+.sysdig-quote-icon svg {
+  display: block;
+}
+
+
+/* ============================================================
+   COMPONENT: Highlight
+   ============================================================ */
+.sysdig-highlight {
+  background: var(--sysdig-lumin);
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   COMPONENT: Card
+   ============================================================ */
+.sysdig-card {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+.sysdig-card--lumin {
+  background: var(--sysdig-lumin);
+}
+
+.sysdig-card--white {
+  background: var(--sysdig-white);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.sysdig-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 var(--slide-pad-x);
+  font-size: 12px;
+  color: var(--sysdig-gray-50);
+  z-index: 100;
+  pointer-events: none;
+  gap: 16px;
+}
+
+.sysdig-footer .footer-text {
+  /* "Sysdig Inc. Proprietary Information" */
+}
+
+.sysdig-footer .footer-logo {
+  font-weight: 700;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--sysdig-black);
+}
+
+.sysdig-footer .footer-divider {
+  width: 4px;
+  height: 20px;
+  background: var(--sysdig-lumin);
+  border-radius: 2px;
+}
+
+.sysdig-footer .footer-page {
+  font-weight: 500;
+}
+
+/* Hide footer on special slides */
+.reveal .slides section.slide-cover-lumin ~ .sysdig-footer,
+.reveal .slides section.slide-cover-dark ~ .sysdig-footer,
+.reveal .slides section.slide-cover-clock ~ .sysdig-footer,
+.reveal .slides section.slide-closing ~ .sysdig-footer {
+  display: none;
+}
+
+/* Hide default reveal.js slide number (we use our own) */
+.reveal .slide-number {
+  display: none !important;
+}
+
+
+/* ============================================================
+   PRINT / PDF
+   ============================================================ */
+@media print {
+  .reveal .slides section {
+    page-break-after: always;
+  }
+
+  .sysdig-footer {
+    position: absolute;
+  }
+
+  .slide-divider-chevron,
+  .slide-divider-diamond,
+  .slide-divider-mountain,
+  .slide-divider-gradient {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

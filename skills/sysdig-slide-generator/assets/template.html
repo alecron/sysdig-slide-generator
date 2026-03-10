@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — Sysdig</title>
+
+  <!-- reveal.js core -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+
+  <!-- Poppins font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,700&display=swap">
+
+  <style>
+    /* {{SYSDIG_THEME_CSS}} */
+    /* Paste the contents of sysdig-theme.css here */
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- {{SLIDES}} -->
+      <!-- Generated slide <section> elements go here -->
+
+    </div>
+
+    <!-- Footer (visible on content slides, hidden on covers/dividers/closing) -->
+    <div class="sysdig-footer">
+      <span class="footer-text">Sysdig Inc. Proprietary Information</span>
+      <span class="footer-logo">sysdig</span>
+      <span class="footer-divider"></span>
+      <span class="footer-page">1</span>
+    </div>
+  </div>
+
+  <!-- reveal.js core JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: false,
+      plugins: [RevealNotes],
+      width: 1920,
+      height: 1080,
+      margin: 0,
+      center: false,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      transitionSpeed: 'default',
+      pdfSeparateFragments: false,
+      display: 'flex',
+      showNotes: false,
+    });
+
+    // Update footer page number on slide change
+    Reveal.on('slidechanged', event => {
+      const pageEl = document.querySelector('.footer-page');
+      if (pageEl) {
+        pageEl.textContent = event.indexh + 1;
+      }
+
+      // Hide footer on special slides
+      const footer = document.querySelector('.sysdig-footer');
+      const currentSlide = event.currentSlide;
+      const hideOnClasses = [
+        'slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock',
+        'slide-closing',
+        'slide-divider-chevron', 'slide-divider-diamond',
+        'slide-divider-mountain', 'slide-divider-gradient'
+      ];
+      const shouldHide = hideOnClasses.some(cls => currentSlide.classList.contains(cls));
+      footer.style.display = shouldHide ? 'none' : 'flex';
+    });
+
+    // Hide footer on initial load if first slide is a cover
+    Reveal.on('ready', event => {
+      const footer = document.querySelector('.sysdig-footer');
+      const firstSlide = event.currentSlide;
+      const hideOnClasses = [
+        'slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock',
+        'slide-closing'
+      ];
+      const shouldHide = hideOnClasses.some(cls => firstSlide.classList.contains(cls));
+      footer.style.display = shouldHide ? 'none' : 'flex';
+    });
+  </script>
+</body>
+</html>

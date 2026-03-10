@@ -1,0 +1,23 @@
+{
+  "name": "sysdig-slide-generator",
+  "owner": {
+    "name": "Alejandro Magallon",
+    "email": "alejandro.magallon@sysdig.com"
+  },
+  "plugins": [
+    {
+      "name": "sysdig-slide-generator",
+      "source": ".",
+      "description": "AI-powered Sysdig-branded slide generator using reveal.js",
+      "version": "0.1.0",
+      "keywords": [
+        "sysdig",
+        "slides",
+        "presentation",
+        "reveal.js",
+        "ai"
+      ],
+      "license": "MIT"
+    }
+  ]
+}

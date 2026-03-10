@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Security in 2026 — Sysdig</title>
+
+  <!-- reveal.js core -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+
+  <!-- Poppins font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,700&display=swap">
+
+  <style>
+/* ============================================================
+   Sysdig Reveal.js Theme
+   Based on Sysdig Corporate Template (2024-2025)
+   ============================================================ */
+
+/* === Google Fonts (loaded in HTML <head>) === */
+/* Poppins: 300 (Light), 400 (Regular), 500 (Medium), 700 (Bold) */
+
+/* === Design Tokens === */
+:root {
+  /* Primary */
+  --sysdig-lumin: #BDF78B;
+  --sysdig-black: #000000;
+  --sysdig-white: #FFFFFF;
+
+  /* Gray Scale */
+  --sysdig-gray-10: #EAEBED;
+  --sysdig-gray-20: #BBBDBF;
+  --sysdig-gray-30: #8A8C8E;
+  --sysdig-gray-40: #626466;
+  --sysdig-gray-50: #535557;
+  --sysdig-gray-60: #3E4042;
+  --sysdig-gray-70: #2B2D30;
+  --sysdig-gray-80: #1E1E22;
+  --sysdig-gray-90: #121217;
+
+  /* Accent (diagrams only) */
+  --sysdig-blue: #00cbe2;
+  --sysdig-red: #ea5255;
+  --sysdig-yellow: #ffc069;
+  --sysdig-purple: #ae44c5;
+
+  /* Typography */
+  --sysdig-font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --slide-pad-y: 60px;
+  --slide-pad-x: 80px;
+  --card-radius: 16px;
+  --card-padding: 40px;
+
+  /* Reveal.js overrides */
+  --r-main-font: var(--sysdig-font);
+  --r-main-font-size: 20px;
+  --r-main-color: var(--sysdig-black);
+  --r-heading-font: var(--sysdig-font);
+  --r-heading-color: var(--sysdig-black);
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-heading-letter-spacing: -0.02em;
+  --r-heading-line-height: 1.2;
+  --r-background-color: var(--sysdig-white);
+  --r-link-color: var(--sysdig-blue);
+  --r-selection-background-color: rgba(189, 247, 139, 0.4);
+}
+
+/* === Base Slide === */
+.reveal .slides section {
+  padding: var(--slide-pad-y) var(--slide-pad-x);
+  text-align: left;
+  font-family: var(--sysdig-font);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.reveal .slides section * {
+  box-sizing: border-box;
+}
+
+/* === Typography === */
+.reveal h1 {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.reveal h2 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.reveal h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.reveal p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.text-light {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* === Lists === */
+.reveal ul, .reveal ol {
+  margin-left: 0;
+  padding-left: 40px;
+}
+
+.reveal ul li, .reveal ol li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.reveal ul ul {
+  padding-left: 40px;
+  margin-top: 8px;
+}
+
+.reveal ul ul li {
+  font-size: 0.9em;
+}
+
+.reveal ul ul ul li {
+  font-size: 0.85em;
+}
+
+/* Bullet styles per level */
+.reveal ul { list-style-type: disc; }
+.reveal ul ul { list-style-type: circle; }
+.reveal ul ul ul { list-style-type: square; }
+
+
+/* ============================================================
+   LAYOUT: Cover - Lumin
+   ============================================================ */
+.slide-cover-lumin {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-cover-lumin h1 {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.slide-cover-lumin .subtitle {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.slide-cover-lumin .logo {
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+
+/* ============================================================
+   LAYOUT: Cover - Dark with Chevrons
+   ============================================================ */
+.slide-cover-dark {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none'%3E%3Cpolygon points='100,80 280,300 100,520' fill='%233E4042' opacity='0.4'/%3E%3Cpolygon points='220,80 400,300 220,520' fill='%23535557' opacity='0.5'/%3E%3Cpolygon points='340,80 520,300 340,520' fill='%236E7A5A' opacity='0.6'/%3E%3Cpolygon points='460,80 640,300 460,520' fill='%2396C872' opacity='0.8'/%3E%3Cpolygon points='580,80 760,300 580,520' fill='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 50% 80%;
+}
+
+.slide-cover-dark h1 {
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--sysdig-white);
+  max-width: 55%;
+}
+
+.slide-cover-dark .logo {
+  font-size: 32px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--sysdig-white);
+  margin-bottom: 40px;
+}
+
+.slide-cover-dark .speaker-info {
+  margin-top: 40px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slide-cover-dark .speaker-info .name {
+  font-weight: 700;
+}
+
+.slide-cover-dark .speaker-info .title {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   LAYOUT: Cover - Dark with Clock
+   ============================================================ */
+.slide-cover-clock {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-cover-clock .clock-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-cover-clock .clock-wrapper svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-cover-clock h1 {
+  font-size: 72px;
+  color: var(--sysdig-lumin);
+  position: relative;
+  z-index: 1;
+}
+
+.slide-cover-clock .speaker-info {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   LAYOUT: Agenda
+   ============================================================ */
+.slide-agenda {
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-agenda h1 {
+  font-size: 44px;
+  margin-bottom: 40px;
+}
+
+.slide-agenda .agenda-list {
+  list-style: none;
+  padding: 0;
+  max-width: 60%;
+}
+
+.slide-agenda .agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.slide-agenda .agenda-item:last-child {
+  border-bottom: none;
+}
+
+.slide-agenda .agenda-number {
+  font-size: 48px;
+  font-weight: 300;
+  min-width: 60px;
+}
+
+.slide-agenda .agenda-text {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   LAYOUT: One Column (Light)
+   ============================================================ */
+.slide-one-col {
+  background-color: var(--sysdig-white) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-one-col h1 {
+  margin-bottom: 4px;
+}
+
+.slide-one-col h2 {
+  font-weight: 300;
+  color: var(--sysdig-gray-50);
+  margin-bottom: 32px;
+}
+
+
+/* ============================================================
+   LAYOUT: One Column (Dark)
+   ============================================================ */
+.slide-one-col-dark {
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-one-col-dark h1 {
+  color: var(--sysdig-white);
+}
+
+.slide-one-col-dark h2 {
+  font-weight: 300;
+  color: var(--sysdig-gray-20);
+}
+
+
+/* ============================================================
+   LAYOUT: Content + Featured Box
+   ============================================================ */
+.slide-content-featured {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-content-featured h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-content-featured .content-left {
+  /* bullets go here */
+}
+
+.slide-content-featured .content-right {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-content-featured .content-right h3 {
+  margin-bottom: 16px;
+}
+
+
+/* ============================================================
+   LAYOUT: Content + Quote
+   ============================================================ */
+.slide-content-quote {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-content-quote h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-content-quote .quote-card {
+  background: var(--sysdig-lumin);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.slide-content-quote .quote-card .quote-text {
+  font-size: 22px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-content-quote .quote-card .quote-attribution {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+
+/* ============================================================
+   LAYOUT: Two Column
+   ============================================================ */
+.slide-two-col {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-two-col h1 {
+  margin-bottom: 32px;
+}
+
+.slide-two-col .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.slide-two-col .columns h2 {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+
+/* ============================================================
+   LAYOUT: Three Column
+   ============================================================ */
+.slide-three-col {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-three-col h1 {
+  margin-bottom: 32px;
+}
+
+.slide-three-col .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+}
+
+.slide-three-col .columns h2 {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+
+/* ============================================================
+   LAYOUT: Right Side Image
+   ============================================================ */
+.slide-image-right {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-image-right .text-content h1 {
+  font-size: 40px;
+}
+
+.slide-image-right .text-content h2 {
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.slide-image-right .image-placeholder {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-image-right .image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+}
+
+
+/* ============================================================
+   LAYOUT: Table / Chart
+   ============================================================ */
+.slide-table {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  background-color: var(--sysdig-white) !important;
+}
+
+
+/* ============================================================
+   LAYOUT: Full Table
+   ============================================================ */
+.slide-table-full {
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-table-full h1 {
+  margin-bottom: 8px;
+}
+
+.slide-table-full h2 {
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+
+/* ============================================================
+   TABLE COMPONENT
+   ============================================================ */
+.sysdig-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.sysdig-table thead th {
+  background: var(--sysdig-gray-70);
+  color: var(--sysdig-white);
+  font-weight: 700;
+  padding: 14px 18px;
+  text-align: left;
+  border: none;
+}
+
+.sysdig-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sysdig-gray-20);
+  vertical-align: top;
+}
+
+.sysdig-table tbody tr:nth-child(even) td {
+  background: var(--sysdig-gray-10);
+}
+
+/* Highlighted column (the "winning" column) */
+.sysdig-table .col-highlight {
+  background: var(--sysdig-lumin) !important;
+}
+
+.sysdig-table thead .col-highlight {
+  background: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+
+/* ============================================================
+   LAYOUT: UI Highlight
+   ============================================================ */
+.slide-ui-highlight {
+  display: grid !important;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-ui-highlight .screenshot-area {
+  background: var(--sysdig-gray-80);
+  border-radius: var(--card-radius);
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-ui-highlight .screenshot-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ============================================================
+   LAYOUT: Diagram + Quote
+   ============================================================ */
+.slide-diagram-quote {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 40px;
+  background-color: var(--sysdig-white) !important;
+}
+
+.slide-diagram-quote h1 {
+  grid-column: 1 / -1;
+}
+
+.slide-diagram-quote .diagram-area {
+  /* for the diagram/infographic */
+}
+
+.slide-diagram-quote .sidebar-quote {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-diagram-quote .sidebar-quote .quote-text {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-diagram-quote .sidebar-quote .quote-attribution {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   LAYOUT: Section Dividers (Dark backgrounds with SVG patterns)
+   ============================================================ */
+.slide-divider-chevron,
+.slide-divider-diamond,
+.slide-divider-mountain,
+.slide-divider-gradient {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-divider-chevron h1,
+.slide-divider-diamond h1,
+.slide-divider-mountain h1,
+.slide-divider-gradient h1 {
+  color: var(--sysdig-lumin);
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.slide-divider-chevron h2,
+.slide-divider-diamond h2,
+.slide-divider-mountain h2,
+.slide-divider-gradient h2 {
+  color: var(--sysdig-white);
+  font-size: 36px;
+  font-weight: 300;
+}
+
+/* Chevron background */
+.slide-divider-chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='100,100 250,300 100,500' stroke='%233E4042' opacity='0.3'/%3E%3Cpolyline points='220,100 370,300 220,500' stroke='%23535557' opacity='0.5'/%3E%3Cpolyline points='340,100 490,300 340,500' stroke='%236E7A5A' opacity='0.6'/%3E%3Cpolyline points='460,100 610,300 460,500' stroke='%2396C872' opacity='0.8'/%3E%3Cpolyline points='580,100 730,300 580,500' stroke='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 50% 80%;
+}
+
+/* Diamond background */
+.slide-divider-diamond {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='3'%3E%3Crect x='300' y='50' width='200' height='200' rx='20' transform='rotate(45 400 150)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='450' y='100' width='180' height='180' rx='18' transform='rotate(45 540 190)' stroke='%23535557' opacity='0.4'/%3E%3Crect x='350' y='250' width='160' height='160' rx='16' transform='rotate(45 430 330)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='550' y='200' width='140' height='140' rx='14' transform='rotate(45 620 270)' fill='%23535557' opacity='0.5'/%3E%3Crect x='500' y='350' width='120' height='120' rx='12' transform='rotate(45 560 410)' fill='%23BDF78B' opacity='0.8'/%3E%3Crect x='650' y='50' width='100' height='100' rx='10' transform='rotate(45 700 100)' stroke='%23BDF78B' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 60% 100%;
+}
+
+/* Mountain background */
+.slide-divider-mountain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 400' fill='none' stroke-width='2'%3E%3Cpolyline points='0,350 200,200 400,300 600,150 800,280 1000,180 1200,320 1400,160 1600,290 1920,200' stroke='%233E4042' opacity='0.2'/%3E%3Cpolyline points='0,380 250,250 500,330 750,200 1000,310 1250,220 1500,340 1750,230 1920,280' stroke='%23535557' opacity='0.3'/%3E%3Cpolyline points='0,400 300,300 600,370 900,260 1200,350 1500,270 1920,350' stroke='%23BDF78B' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 40%;
+}
+
+/* Gradient blob background */
+.slide-divider-gradient {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2396C872' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23BDF78B' stop-opacity='0.9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='0,0 600,0 400,600 0,1080' fill='url(%23g)' opacity='0.7'/%3E%3Cpolygon points='1000,0 1920,0 1920,1080 1200,1080' fill='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  text-align: center;
+}
+
+
+/* ============================================================
+   LAYOUT: Quote (Lumin background)
+   ============================================================ */
+.slide-quote {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-quote .quote-card {
+  background: var(--sysdig-white);
+  border-radius: var(--card-radius);
+  padding: 60px 80px;
+  max-width: 75%;
+  position: relative;
+}
+
+.slide-quote .quote-card .sysdig-quote-icon {
+  position: absolute;
+  top: -24px;
+  left: 40px;
+}
+
+.slide-quote .quote-card .quote-text {
+  font-size: 28px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+
+.slide-quote .quote-card .quote-attribution {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 32px;
+}
+
+
+/* ============================================================
+   LAYOUT: Callout (Dark + Lumin variants)
+   ============================================================ */
+.slide-callout-dark {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-gray-70) !important;
+  color: var(--sysdig-white);
+}
+
+.slide-callout-dark .eyebrow {
+  color: var(--sysdig-lumin);
+}
+
+.slide-callout-dark h1 {
+  font-size: 60px;
+  font-weight: 400;
+  color: var(--sysdig-white);
+  max-width: 80%;
+}
+
+.slide-callout-lumin {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-callout-lumin .eyebrow {
+  color: var(--sysdig-black);
+}
+
+.slide-callout-lumin h1 {
+  font-size: 60px;
+  font-weight: 400;
+  color: var(--sysdig-black);
+  max-width: 80%;
+}
+
+
+/* ============================================================
+   LAYOUT: Closing
+   ============================================================ */
+.slide-closing {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--sysdig-lumin) !important;
+  color: var(--sysdig-black);
+}
+
+.slide-closing .logo {
+  font-size: 72px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.slide-closing .tagline {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+
+/* ============================================================
+   COMPONENT: Quote Icon
+   ============================================================ */
+.sysdig-quote-icon {
+  display: inline-block;
+  line-height: 0;
+}
+
+.sysdig-quote-icon svg {
+  display: block;
+}
+
+
+/* ============================================================
+   COMPONENT: Highlight
+   ============================================================ */
+.sysdig-highlight {
+  background: var(--sysdig-lumin);
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   COMPONENT: Card
+   ============================================================ */
+.sysdig-card {
+  background: var(--sysdig-gray-10);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+
+.sysdig-card--lumin {
+  background: var(--sysdig-lumin);
+}
+
+.sysdig-card--white {
+  background: var(--sysdig-white);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.sysdig-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 var(--slide-pad-x);
+  font-size: 12px;
+  color: var(--sysdig-gray-50);
+  z-index: 100;
+  pointer-events: none;
+  gap: 16px;
+}
+
+.sysdig-footer .footer-text {
+  /* "Sysdig Inc. Proprietary Information" */
+}
+
+.sysdig-footer .footer-logo {
+  font-weight: 700;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--sysdig-black);
+}
+
+.sysdig-footer .footer-divider {
+  width: 4px;
+  height: 20px;
+  background: var(--sysdig-lumin);
+  border-radius: 2px;
+}
+
+.sysdig-footer .footer-page {
+  font-weight: 500;
+}
+
+/* Hide default reveal.js slide number (we use our own) */
+.reveal .slide-number {
+  display: none !important;
+}
+
+
+/* ============================================================
+   PRINT / PDF
+   ============================================================ */
+@media print {
+  .reveal .slides section {
+    page-break-after: always;
+  }
+
+  .sysdig-footer {
+    position: absolute;
+  }
+
+  .slide-divider-chevron,
+  .slide-divider-diamond,
+  .slide-divider-mountain,
+  .slide-divider-gradient {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Cover Dark -->
+      <section class="slide-cover-dark">
+        <div class="logo">sysdig</div>
+        <h1>CLOUD SECURITY IN 2026.</h1>
+        <div class="speaker-info">
+          <div class="name">ALEJANDRO MAGALLON</div>
+          <div class="title">SOLUTIONS ARCHITECT</div>
+        </div>
+        <aside class="notes">Welcome everyone. I'm Alejandro Magallon, Solutions Architect at Sysdig. Today we're going to talk about the state of cloud security in 2026 and how the landscape has fundamentally changed.</aside>
+      </section>
+
+      <!-- Slide 2: Agenda -->
+      <section class="slide-agenda">
+        <h1>Agenda</h1>
+        <div class="agenda-list">
+          <div class="agenda-item">
+            <span class="agenda-number">1</span>
+            <span class="agenda-text">The Evolving Threat Landscape</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">2</span>
+            <span class="agenda-text">Runtime Security: Why It Matters</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">3</span>
+            <span class="agenda-text">Cloud-Native Detection & Response</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">4</span>
+            <span class="agenda-text">Building a Security-First Culture</span>
+          </div>
+        </div>
+        <aside class="notes">Here's our roadmap. We'll start with the current threat landscape, dive into why runtime security is critical, explore detection and response, and finish with actionable steps for building a security-first culture.</aside>
+      </section>
+
+      <!-- Slide 3: Callout Dark -->
+      <section class="slide-callout-dark">
+        <p class="eyebrow">THE CHALLENGE</p>
+        <h1>95% of container vulnerabilities are never exploited in production</h1>
+        <aside class="notes">Let this sink in. Ninety-five percent. The industry has been drowning in vulnerability noise. The real question isn't "how many CVEs do we have?" — it's "which ones actually matter in our running environment?"</aside>
+      </section>
+
+      <!-- Slide 4: Section Divider - Chevrons -->
+      <section class="slide-divider-chevron">
+        <h1><em>The Threat Landscape</em></h1>
+        <h2>Understanding what's changed</h2>
+        <aside class="notes">Let's look at what's actually happening in the threat landscape and why traditional approaches are falling short.</aside>
+      </section>
+
+      <!-- Slide 5: One Column -->
+      <section class="slide-one-col">
+        <h1>Cloud Attacks Are Faster Than Ever</h1>
+        <h2>The 555 Benchmark for Cloud Detection</h2>
+        <ul>
+          <li>Attackers compromise cloud environments in under <strong>5 minutes</strong>
+            <ul>
+              <li>Automated tooling scans for misconfigurations continuously</li>
+              <li>Exposed credentials are exploited within seconds of leaking</li>
+            </ul>
+          </li>
+          <li>Lateral movement happens in under <strong>5 minutes</strong>
+            <ul>
+              <li>Cloud APIs accelerate attacker movement between services</li>
+            </ul>
+          </li>
+          <li>Data exfiltration begins in under <strong>5 minutes</strong>
+            <ul>
+              <li>Entire databases copied before traditional tools even alert</li>
+            </ul>
+          </li>
+        </ul>
+        <aside class="notes">This is the 555 benchmark. Five minutes to compromise, five minutes to move laterally, five minutes to exfiltrate. This isn't theoretical — we've observed this in real-world attacks. Your security tools need to detect and respond faster than 5 minutes, or you've already lost.</aside>
+      </section>
+
+      <!-- Slide 6: Content + Featured Box -->
+      <section class="slide-content-featured">
+        <h1>Top Cloud Attack Vectors in 2026</h1>
+        <div class="content-left">
+          <h3>Most Common Entry Points</h3>
+          <ul>
+            <li>Supply chain compromise
+              <ul><li>Malicious packages in public registries</li></ul>
+            </li>
+            <li>Identity & credential abuse
+              <ul><li>Overprivileged service accounts</li></ul>
+            </li>
+            <li>Container escape exploits
+              <ul><li>Kernel vulnerabilities in shared runtimes</li></ul>
+            </li>
+            <li>API misconfigurations
+              <ul><li>Unprotected management endpoints</li></ul>
+            </li>
+          </ul>
+        </div>
+        <div class="content-right">
+          <h3>Key Insight</h3>
+          <p>78% of successful cloud breaches involve at least one misconfigured identity or overprivileged service account.</p>
+          <p class="text-light">Source: Sysdig 2026 Cloud Threat Report</p>
+        </div>
+        <aside class="notes">Let's break down the most common vectors. Supply chain attacks continue to rise — we saw a 340% increase in malicious packages in public registries. Identity abuse is the number one vector. And notice the featured stat: 78% involve misconfigured identities. This is why CNAPP platforms that combine posture and runtime are essential.</aside>
+      </section>
+
+      <!-- Slide 7: Section Divider - Diamonds -->
+      <section class="slide-divider-diamond">
+        <h1><em>Runtime Security</em></h1>
+        <h2>Detecting threats in real time</h2>
+        <aside class="notes">Now let's shift to runtime security — the capability that separates modern cloud security from the legacy scanning-only approach.</aside>
+      </section>
+
+      <!-- Slide 8: Two Column -->
+      <section class="slide-two-col">
+        <h1>Shift Left vs. Shield Right</h1>
+        <div class="columns">
+          <div>
+            <h2>Shift Left (Prevention)</h2>
+            <ul>
+              <li>IaC scanning in CI/CD
+                <ul><li>Catch misconfigs before deploy</li></ul>
+              </li>
+              <li>Image vulnerability scanning
+                <ul><li>Block known CVEs at build</li></ul>
+              </li>
+              <li>Policy-as-code
+                <ul><li>Enforce guardrails automatically</li></ul>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Shield Right (Detection)</h2>
+            <ul>
+              <li>Runtime threat detection
+                <ul><li>Catch zero-days and novel attacks</li></ul>
+              </li>
+              <li>Behavioral analysis
+                <ul><li>Identify anomalous container activity</li></ul>
+              </li>
+              <li>Real-time response
+                <ul><li>Kill compromised workloads instantly</li></ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">This is the fundamental tension. Shift left catches known issues before deployment. Shield right catches unknown threats at runtime. You need both. Shift left alone misses zero-days and novel attack patterns. Shield right alone means you're always reacting. The combination is what gives you true coverage.</aside>
+      </section>
+
+      <!-- Slide 9: Content + Quote -->
+      <section class="slide-content-quote">
+        <h1>Falco: The Runtime Security Standard</h1>
+        <div class="content-left">
+          <h3>Why Falco Powers Runtime Detection</h3>
+          <ul>
+            <li>Kernel-level visibility via eBPF
+              <ul><li>See every system call, no agent overhead</li></ul>
+            </li>
+            <li>Cloud-native rules engine
+              <ul><li>Detect drift, lateral movement, cryptomining</li></ul>
+            </li>
+            <li>CNCF graduated project
+              <ul><li>Community-driven, vendor-neutral</li></ul>
+            </li>
+          </ul>
+        </div>
+        <div class="quote-card">
+          <div class="sysdig-quote-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#2B2D30"/><text x="32" y="44" text-anchor="middle" fill="white" font-family="Georgia,serif" font-size="36" font-weight="bold">&ldquo;</text></svg>
+          </div>
+          <p class="quote-text">Falco gives us kernel-level visibility without the performance overhead. We can detect anomalous behavior in real time across all our clusters.</p>
+          <p class="quote-attribution">Platform Engineering Lead, Fortune 500 Bank</p>
+        </div>
+        <aside class="notes">Falco is the CNCF graduated project that powers runtime detection. It uses eBPF to hook into the kernel — seeing every system call without the overhead of a traditional agent. The quote here is from a Fortune 500 bank that deployed Falco across thousands of nodes. Their detection time went from hours to seconds.</aside>
+      </section>
+
+      <!-- Slide 10: Three Column -->
+      <section class="slide-three-col">
+        <h1>The Three Pillars of Cloud-Native Security</h1>
+        <div class="columns">
+          <div>
+            <h2>Prevent</h2>
+            <p>Enforce security posture across infrastructure-as-code, container images, and cloud configurations before deployment.</p>
+          </div>
+          <div>
+            <h2>Detect</h2>
+            <p>Monitor runtime behavior with kernel-level visibility. Identify threats, anomalies, and policy violations in real time.</p>
+          </div>
+          <div>
+            <h2>Respond</h2>
+            <p>Automate containment and remediation. Kill compromised workloads, revoke credentials, and trigger incident workflows.</p>
+          </div>
+        </div>
+        <aside class="notes">Think of these as the three pillars. Prevent is your shift-left posture management. Detect is your runtime shield. Respond is your automated reaction. A mature cloud security program needs all three working together. Sysdig's CNAPP platform unifies these into a single workflow.</aside>
+      </section>
+
+      <!-- Slide 11: Section Divider - Mountains -->
+      <section class="slide-divider-mountain">
+        <h1><em>Detection & Response</em></h1>
+        <h2>From alert to action in seconds</h2>
+        <aside class="notes">Let's now look at how detection and response actually works in practice — and how to get from alert to action in under 5 minutes.</aside>
+      </section>
+
+      <!-- Slide 12: Full Table -->
+      <section class="slide-table-full">
+        <h1>CNAPP Comparison</h1>
+        <h2>How leading platforms stack up</h2>
+        <table class="sysdig-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Legacy CSPM</th>
+              <th>Scanner-Only</th>
+              <th class="col-highlight">Sysdig CNAPP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Runtime Threat Detection</td>
+              <td>None</td>
+              <td>Limited</td>
+              <td class="col-highlight">Kernel-level (eBPF)</td>
+            </tr>
+            <tr>
+              <td>Detection Speed</td>
+              <td>Hours</td>
+              <td>Minutes</td>
+              <td class="col-highlight">&lt; 5 seconds</td>
+            </tr>
+            <tr>
+              <td>Risk Prioritization</td>
+              <td>Static severity</td>
+              <td>CVSS only</td>
+              <td class="col-highlight">Runtime context</td>
+            </tr>
+            <tr>
+              <td>Cloud + Container</td>
+              <td>Cloud only</td>
+              <td>Container only</td>
+              <td class="col-highlight">Unified</td>
+            </tr>
+            <tr>
+              <td>Open Standards</td>
+              <td>Proprietary</td>
+              <td>Partial</td>
+              <td class="col-highlight">Falco + OPA</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">Here's how the approaches compare. Legacy CSPM gives you posture but no runtime visibility. Scanner-only tools find vulnerabilities but can't tell you which ones are actually being exploited. Sysdig's CNAPP combines both — kernel-level runtime detection with posture management, risk prioritization based on what's actually running, and it's built on open standards like Falco and OPA.</aside>
+      </section>
+
+      <!-- Slide 13: Quote -->
+      <section class="slide-quote">
+        <div class="quote-card">
+          <div class="sysdig-quote-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#2B2D30"/><text x="32" y="44" text-anchor="middle" fill="white" font-family="Georgia,serif" font-size="36" font-weight="bold">&ldquo;</text></svg>
+          </div>
+          <p class="quote-text">We reduced our mean time to detect from 4 hours to <span class="sysdig-highlight"><strong>under 10 seconds</strong></span>. The runtime insights changed how our entire security team operates.</p>
+          <p class="quote-attribution">CISO, Global SaaS Provider</p>
+        </div>
+        <aside class="notes">This is from the CISO of a global SaaS company — one of our customers. Four hours to ten seconds. That's not incremental improvement, that's a paradigm shift. And notice they said it changed how their entire team operates. Runtime security doesn't just find threats faster — it transforms your security workflows.</aside>
+      </section>
+
+      <!-- Slide 14: Callout Lumin -->
+      <section class="slide-callout-lumin">
+        <p class="eyebrow">THE BOTTOM LINE</p>
+        <h1>You can't secure what you can't see at runtime</h1>
+        <aside class="notes">This is the core message. Scanning alone gives you a point-in-time snapshot. Runtime gives you continuous visibility. In a world where attacks happen in minutes, you need to see what's happening right now — not what was true at the last scan.</aside>
+      </section>
+
+      <!-- Slide 15: One Column Dark -->
+      <section class="slide-one-col-dark">
+        <h1>Building a Security-First Culture</h1>
+        <h2>Practical steps for your organization</h2>
+        <ul>
+          <li>Adopt the 555 benchmark — detect in 5s, triage in 5m, respond in 5m</li>
+          <li>Implement runtime security alongside posture management</li>
+          <li>Use risk prioritization to cut vulnerability noise by 95%</li>
+          <li>Automate response playbooks for common attack patterns</li>
+          <li>Invest in open standards (Falco, OPA, OCSF) for vendor flexibility</li>
+        </ul>
+        <aside class="notes">Let me leave you with concrete actions. First, adopt the 555 benchmark as your north star. Second, don't choose between shift left and shield right — do both. Third, use runtime context to prioritize. Fourth, automate your response. And fifth, invest in open standards so you're never locked in. These five steps will fundamentally improve your cloud security posture.</aside>
+      </section>
+
+      <!-- Slide 16: Closing -->
+      <section class="slide-closing">
+        <div class="logo">sysdig</div>
+        <p class="tagline">SECURE EVERY SECOND</p>
+        <aside class="notes">Thank you everyone. The key takeaway: in cloud security, every second counts. Sysdig gives you the runtime visibility to secure every one of them. I'm happy to take questions.</aside>
+      </section>
+
+    </div>
+
+    <!-- Footer (visible on content slides, hidden on covers/dividers/closing) -->
+    <div class="sysdig-footer">
+      <span class="footer-text">Sysdig Inc. Proprietary Information</span>
+      <span class="footer-logo">sysdig</span>
+      <span class="footer-divider"></span>
+      <span class="footer-page">1</span>
+    </div>
+  </div>
+
+  <!-- reveal.js core JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: false,
+      plugins: [RevealNotes],
+      width: 1920,
+      height: 1080,
+      margin: 0,
+      center: false,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      transitionSpeed: 'default',
+      pdfSeparateFragments: false,
+      display: 'flex',
+      showNotes: false,
+    });
+
+    // Update footer page number on slide change
+    Reveal.on('slidechanged', event => {
+      const pageEl = document.querySelector('.footer-page');
+      if (pageEl) {
+        pageEl.textContent = event.indexh + 1;
+      }
+
+      // Hide footer on special slides
+      const footer = document.querySelector('.sysdig-footer');
+      const currentSlide = event.currentSlide;
+      const hideOnClasses = [
+        'slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock',
+        'slide-closing',
+        'slide-divider-chevron', 'slide-divider-diamond',
+        'slide-divider-mountain', 'slide-divider-gradient'
+      ];
+      const shouldHide = hideOnClasses.some(cls => currentSlide.classList.contains(cls));
+      footer.style.display = shouldHide ? 'none' : 'flex';
+    });
+
+    // Hide footer on initial load if first slide is a cover
+    Reveal.on('ready', event => {
+      const footer = document.querySelector('.sysdig-footer');
+      const firstSlide = event.currentSlide;
+      const hideOnClasses = [
+        'slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock',
+        'slide-closing'
+      ];
+      const shouldHide = hideOnClasses.some(cls => firstSlide.classList.contains(cls));
+      footer.style.display = shouldHide ? 'none' : 'flex';
+    });
+  </script>
+</body>
+</html>
