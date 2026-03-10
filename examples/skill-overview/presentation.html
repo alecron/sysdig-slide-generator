@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sysdig Slide Generator — Sysdig</title>
+
+  <!-- reveal.js core -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+
+  <!-- Poppins font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,700&display=swap">
+
+  <style>
+/* ============================================================
+   Sysdig Reveal.js Theme
+   ============================================================ */
+
+:root {
+  --sysdig-lumin: #BDF78B;
+  --sysdig-black: #000000;
+  --sysdig-white: #FFFFFF;
+  --sysdig-gray-10: #EAEBED;
+  --sysdig-gray-20: #BBBDBF;
+  --sysdig-gray-30: #8A8C8E;
+  --sysdig-gray-40: #626466;
+  --sysdig-gray-50: #535557;
+  --sysdig-gray-60: #3E4042;
+  --sysdig-gray-70: #2B2D30;
+  --sysdig-gray-80: #1E1E22;
+  --sysdig-gray-90: #121217;
+  --sysdig-blue: #00cbe2;
+  --sysdig-red: #ea5255;
+  --sysdig-yellow: #ffc069;
+  --sysdig-purple: #ae44c5;
+  --sysdig-font: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --slide-pad-y: 60px;
+  --slide-pad-x: 80px;
+  --card-radius: 16px;
+  --card-padding: 40px;
+  --r-main-font: var(--sysdig-font);
+  --r-main-font-size: 20px;
+  --r-main-color: var(--sysdig-black);
+  --r-heading-font: var(--sysdig-font);
+  --r-heading-color: var(--sysdig-black);
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-heading-letter-spacing: -0.02em;
+  --r-heading-line-height: 1.2;
+  --r-background-color: var(--sysdig-white);
+  --r-link-color: var(--sysdig-blue);
+  --r-selection-background-color: rgba(189, 247, 139, 0.4);
+}
+
+.reveal .slides section {
+  padding: var(--slide-pad-y) var(--slide-pad-x);
+  text-align: left;
+  font-family: var(--sysdig-font);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.reveal .slides section * { box-sizing: border-box; }
+
+.reveal h1 { font-size: 44px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+.reveal h2 { font-size: 28px; font-weight: 500; line-height: 1.3; margin-bottom: 24px; }
+.reveal h3 { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
+.reveal p { margin-bottom: 12px; line-height: 1.5; }
+.text-light { font-weight: 300; font-size: 18px; }
+.eyebrow { font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+
+.reveal ul, .reveal ol { margin-left: 0; padding-left: 40px; }
+.reveal ul li, .reveal ol li { margin-bottom: 12px; line-height: 1.5; }
+.reveal ul ul { padding-left: 40px; margin-top: 8px; }
+.reveal ul ul li { font-size: 0.9em; }
+.reveal ul { list-style-type: disc; }
+.reveal ul ul { list-style-type: circle; }
+
+/* Cover Lumin */
+.slide-cover-lumin {
+  display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  background-color: var(--sysdig-lumin) !important; color: var(--sysdig-black);
+}
+.slide-cover-lumin h1 { font-size: 64px; margin-bottom: 24px; }
+.slide-cover-lumin .subtitle { font-size: 24px; font-weight: 400; }
+.slide-cover-lumin .logo { font-size: 48px; font-weight: 700; font-style: italic; margin-bottom: 16px; }
+
+/* Cover Dark */
+.slide-cover-dark {
+  display: flex !important; flex-direction: column; justify-content: center;
+  background-color: var(--sysdig-gray-70) !important; color: var(--sysdig-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none'%3E%3Cpolygon points='100,80 280,300 100,520' fill='%233E4042' opacity='0.4'/%3E%3Cpolygon points='220,80 400,300 220,520' fill='%23535557' opacity='0.5'/%3E%3Cpolygon points='340,80 520,300 340,520' fill='%236E7A5A' opacity='0.6'/%3E%3Cpolygon points='460,80 640,300 460,520' fill='%2396C872' opacity='0.8'/%3E%3Cpolygon points='580,80 760,300 580,520' fill='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right center; background-size: 50% 80%;
+}
+.slide-cover-dark h1 { font-size: 72px; font-weight: 700; color: var(--sysdig-white); max-width: 55%; }
+.slide-cover-dark .logo { font-size: 32px; font-weight: 700; font-style: italic; color: var(--sysdig-white); margin-bottom: 40px; }
+.slide-cover-dark .speaker-info { margin-top: 40px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.slide-cover-dark .speaker-info .name { font-weight: 700; }
+.slide-cover-dark .speaker-info .title { font-weight: 400; font-size: 13px; }
+
+/* Agenda */
+.slide-agenda { background-color: var(--sysdig-lumin) !important; color: var(--sysdig-black); }
+.slide-agenda h1 { font-size: 44px; margin-bottom: 40px; }
+.slide-agenda .agenda-list { list-style: none; padding: 0; max-width: 60%; }
+.slide-agenda .agenda-item { display: flex; align-items: center; gap: 24px; padding: 24px 0; border-bottom: 1px solid rgba(0,0,0,0.15); }
+.slide-agenda .agenda-item:last-child { border-bottom: none; }
+.slide-agenda .agenda-number { font-size: 48px; font-weight: 300; min-width: 60px; }
+.slide-agenda .agenda-text { font-size: 22px; font-weight: 700; }
+
+/* One Column */
+.slide-one-col { background-color: var(--sysdig-white) !important; color: var(--sysdig-black); }
+.slide-one-col h1 { margin-bottom: 4px; }
+.slide-one-col h2 { font-weight: 300; color: var(--sysdig-gray-50); margin-bottom: 32px; }
+
+/* One Column Dark */
+.slide-one-col-dark { background-color: var(--sysdig-gray-70) !important; color: var(--sysdig-white); }
+.slide-one-col-dark h1 { color: var(--sysdig-white); }
+.slide-one-col-dark h2 { font-weight: 300; color: var(--sysdig-gray-20); }
+
+/* Content + Featured */
+.slide-content-featured {
+  display: grid !important; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+.slide-content-featured h1 { grid-column: 1 / -1; }
+.slide-content-featured .content-right {
+  background: var(--sysdig-gray-10); border-radius: var(--card-radius); padding: var(--card-padding);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.slide-content-featured .content-right h3 { margin-bottom: 16px; }
+
+/* Content + Quote */
+.slide-content-quote {
+  display: grid !important; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 0 60px;
+  background-color: var(--sysdig-white) !important;
+}
+.slide-content-quote h1 { grid-column: 1 / -1; }
+.slide-content-quote .quote-card {
+  background: var(--sysdig-lumin); border-radius: var(--card-radius); padding: var(--card-padding);
+  display: flex; flex-direction: column; justify-content: center; position: relative;
+}
+.slide-content-quote .quote-card .quote-text { font-size: 22px; line-height: 1.5; margin-top: 16px; }
+.slide-content-quote .quote-card .quote-attribution { font-size: 14px; font-weight: 700; margin-top: 24px; }
+
+/* Two Column */
+.slide-two-col { background-color: var(--sysdig-white) !important; }
+.slide-two-col h1 { margin-bottom: 32px; }
+.slide-two-col .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.slide-two-col .columns h2 { font-weight: 700; font-size: 22px; }
+
+/* Three Column */
+.slide-three-col { background-color: var(--sysdig-white) !important; }
+.slide-three-col h1 { margin-bottom: 32px; }
+.slide-three-col .columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; }
+.slide-three-col .columns h2 { font-weight: 700; font-size: 22px; }
+
+/* Full Table */
+.slide-table-full { background-color: var(--sysdig-white) !important; }
+.slide-table-full h1 { margin-bottom: 8px; }
+.slide-table-full h2 { font-weight: 300; margin-bottom: 32px; }
+
+/* Table Component */
+.sysdig-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.sysdig-table thead th { background: var(--sysdig-gray-70); color: var(--sysdig-white); font-weight: 700; padding: 14px 18px; text-align: left; border: none; }
+.sysdig-table tbody td { padding: 14px 18px; border-bottom: 1px solid var(--sysdig-gray-20); vertical-align: top; }
+.sysdig-table tbody tr:nth-child(even) td { background: var(--sysdig-gray-10); }
+.sysdig-table .col-highlight { background: var(--sysdig-lumin) !important; }
+.sysdig-table thead .col-highlight { background: var(--sysdig-lumin) !important; color: var(--sysdig-black); }
+
+/* Section Dividers */
+.slide-divider-chevron, .slide-divider-diamond, .slide-divider-mountain, .slide-divider-gradient {
+  display: flex !important; flex-direction: column; justify-content: center;
+  background-color: var(--sysdig-gray-70) !important; color: var(--sysdig-white);
+}
+.slide-divider-chevron h1, .slide-divider-diamond h1, .slide-divider-mountain h1, .slide-divider-gradient h1 {
+  color: var(--sysdig-lumin); font-size: 48px; font-weight: 700; font-style: italic;
+}
+.slide-divider-chevron h2, .slide-divider-diamond h2, .slide-divider-mountain h2, .slide-divider-gradient h2 {
+  color: var(--sysdig-white); font-size: 36px; font-weight: 300;
+}
+.slide-divider-chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='100,100 250,300 100,500' stroke='%233E4042' opacity='0.3'/%3E%3Cpolyline points='220,100 370,300 220,500' stroke='%23535557' opacity='0.5'/%3E%3Cpolyline points='340,100 490,300 340,500' stroke='%236E7A5A' opacity='0.6'/%3E%3Cpolyline points='460,100 610,300 460,500' stroke='%2396C872' opacity='0.8'/%3E%3Cpolyline points='580,100 730,300 580,500' stroke='%23BDF78B' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right center; background-size: 50% 80%;
+}
+.slide-divider-diamond {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' fill='none' stroke-width='3'%3E%3Crect x='300' y='50' width='200' height='200' rx='20' transform='rotate(45 400 150)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='450' y='100' width='180' height='180' rx='18' transform='rotate(45 540 190)' stroke='%23535557' opacity='0.4'/%3E%3Crect x='350' y='250' width='160' height='160' rx='16' transform='rotate(45 430 330)' stroke='%233E4042' opacity='0.3'/%3E%3Crect x='550' y='200' width='140' height='140' rx='14' transform='rotate(45 620 270)' fill='%23535557' opacity='0.5'/%3E%3Crect x='500' y='350' width='120' height='120' rx='12' transform='rotate(45 560 410)' fill='%23BDF78B' opacity='0.8'/%3E%3Crect x='650' y='50' width='100' height='100' rx='10' transform='rotate(45 700 100)' stroke='%23BDF78B' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right top; background-size: 60% 100%;
+}
+.slide-divider-mountain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 400' fill='none' stroke-width='2'%3E%3Cpolyline points='0,350 200,200 400,300 600,150 800,280 1000,180 1200,320 1400,160 1600,290 1920,200' stroke='%233E4042' opacity='0.2'/%3E%3Cpolyline points='0,380 250,250 500,330 750,200 1000,310 1250,220 1500,340 1750,230 1920,280' stroke='%23535557' opacity='0.3'/%3E%3Cpolyline points='0,400 300,300 600,370 900,260 1200,350 1500,270 1920,350' stroke='%23BDF78B' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: bottom center; background-size: 100% 40%;
+}
+.slide-divider-gradient {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2396C872' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23BDF78B' stop-opacity='0.9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='0,0 600,0 400,600 0,1080' fill='url(%23g)' opacity='0.7'/%3E%3Cpolygon points='1000,0 1920,0 1920,1080 1200,1080' fill='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; text-align: center;
+}
+
+/* Quote */
+.slide-quote {
+  display: flex !important; justify-content: center; align-items: center;
+  background-color: var(--sysdig-lumin) !important; color: var(--sysdig-black);
+}
+.slide-quote .quote-card {
+  background: var(--sysdig-white); border-radius: var(--card-radius); padding: 60px 80px; max-width: 75%; position: relative;
+}
+.slide-quote .quote-card .sysdig-quote-icon { position: absolute; top: -24px; left: 40px; }
+.slide-quote .quote-card .quote-text { font-size: 28px; line-height: 1.5; margin-top: 16px; }
+.slide-quote .quote-card .quote-attribution { font-size: 14px; font-weight: 700; margin-top: 32px; }
+
+/* Callout */
+.slide-callout-dark {
+  display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  background-color: var(--sysdig-gray-70) !important; color: var(--sysdig-white);
+}
+.slide-callout-dark .eyebrow { color: var(--sysdig-lumin); }
+.slide-callout-dark h1 { font-size: 60px; font-weight: 400; color: var(--sysdig-white); max-width: 80%; }
+
+.slide-callout-lumin {
+  display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  background-color: var(--sysdig-lumin) !important; color: var(--sysdig-black);
+}
+.slide-callout-lumin .eyebrow { color: var(--sysdig-black); }
+.slide-callout-lumin h1 { font-size: 60px; font-weight: 400; color: var(--sysdig-black); max-width: 80%; }
+
+/* Closing */
+.slide-closing {
+  display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  background-color: var(--sysdig-lumin) !important; color: var(--sysdig-black);
+}
+.slide-closing .logo { font-size: 72px; font-weight: 700; font-style: italic; }
+.slide-closing .tagline { font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; }
+
+/* Components */
+.sysdig-quote-icon { display: inline-block; line-height: 0; }
+.sysdig-quote-icon svg { display: block; }
+.sysdig-highlight { background: var(--sysdig-lumin); padding: 2px 6px; font-weight: 700; }
+.sysdig-card { background: var(--sysdig-gray-10); border-radius: var(--card-radius); padding: var(--card-padding); }
+
+/* Footer */
+.sysdig-footer {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 var(--slide-pad-x); font-size: 12px; color: var(--sysdig-gray-50);
+  z-index: 100; pointer-events: none; gap: 16px;
+}
+.sysdig-footer .footer-logo { font-weight: 700; font-style: italic; font-size: 16px; color: var(--sysdig-black); }
+.sysdig-footer .footer-divider { width: 4px; height: 20px; background: var(--sysdig-lumin); border-radius: 2px; }
+.sysdig-footer .footer-page { font-weight: 500; }
+.reveal .slide-number { display: none !important; }
+
+@media print {
+  .reveal .slides section { page-break-after: always; }
+  .sysdig-footer { position: absolute; }
+  .slide-divider-chevron, .slide-divider-diamond, .slide-divider-mountain, .slide-divider-gradient {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Cover Dark -->
+      <section class="slide-cover-dark">
+        <div class="logo">sysdig</div>
+        <h1>SYSDIG SLIDE GENERATOR.</h1>
+        <div class="speaker-info">
+          <div class="name">AI-POWERED PRESENTATIONS</div>
+          <div class="title">A CLAUDE CODE PLUGIN</div>
+        </div>
+        <aside class="notes">Welcome. This is a presentation about the Sysdig Slide Generator — a Claude Code plugin that builds branded Sysdig presentations using AI. And yes, this very deck was generated by the tool itself.</aside>
+      </section>
+
+      <!-- Slide 2: Agenda -->
+      <section class="slide-agenda">
+        <h1>Agenda</h1>
+        <div class="agenda-list">
+          <div class="agenda-item">
+            <span class="agenda-number">1</span>
+            <span class="agenda-text">The Problem We're Solving</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">2</span>
+            <span class="agenda-text">How It Works</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">3</span>
+            <span class="agenda-text">23 Layout Types</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-number">4</span>
+            <span class="agenda-text">Installation &amp; Getting Started</span>
+          </div>
+        </div>
+        <aside class="notes">Four sections today. First, why this tool exists. Then how the AI workflow actually works behind the scenes. We'll look at all the layout types available. And finally, how to install and start using it.</aside>
+      </section>
+
+      <!-- Slide 3: Callout Dark — The Problem -->
+      <section class="slide-callout-dark">
+        <p class="eyebrow">THE PROBLEM</p>
+        <h1>Building branded slide decks is slow, repetitive, and inconsistent</h1>
+        <aside class="notes">Let's be honest. Building a proper Sysdig-branded deck takes hours. You're copying layouts from templates, adjusting formatting, writing speaker notes separately, and the result is still inconsistent across the team. What if AI could do the heavy lifting?</aside>
+      </section>
+
+      <!-- Slide 4: Divider Chevron -->
+      <section class="slide-divider-chevron">
+        <h1><em>How It Works</em></h1>
+        <h2>Five phases, fully automated</h2>
+        <aside class="notes">The skill runs a five-phase pipeline. Let me walk you through each one.</aside>
+      </section>
+
+      <!-- Slide 5: One Column — The Workflow -->
+      <section class="slide-one-col">
+        <h1>The 5-Phase Workflow</h1>
+        <h2>From references to a polished deck in minutes</h2>
+        <ul>
+          <li><strong>Phase 1: Input Gathering</strong> — Topic, audience, slide count, and optional reference materials
+            <ul><li>Just describe what you want — the skill asks for anything missing</li></ul>
+          </li>
+          <li><strong>Phase 2: Reference Analysis</strong> — Parallel AI agents analyze each source document
+            <ul><li>PDFs, transcripts, markdown — all processed simultaneously</li></ul>
+          </li>
+          <li><strong>Phase 3: Content Synthesis</strong> — Merges analyses into a narrative arc
+            <ul><li>Generates a slide-by-slide outline for your approval</li></ul>
+          </li>
+          <li><strong>Phase 4: HTML Generation</strong> — Assembles the reveal.js presentation
+            <ul><li>Selects layout types, fills content, adds speaker notes</li></ul>
+          </li>
+          <li><strong>Phase 5: Output</strong> — Writes presentation.html, speaker-notes.md, and outline.md</li>
+        </ul>
+        <aside class="notes">Phase 1 is just a conversation — tell Claude what you need. Phase 2 is where the magic happens: if you provide reference documents, the skill launches parallel AI agents that each analyze a different source file, extracting key points, quotes, and statistics. Phase 3 synthesizes all that into a narrative structure and shows you an outline before generating anything. Phase 4 builds the actual HTML using our layout templates. Phase 5 delivers the files and opens the presentation in your browser.</aside>
+      </section>
+
+      <!-- Slide 6: Content + Featured — Reference Analysis -->
+      <section class="slide-content-featured">
+        <h1>Parallel Reference Analysis</h1>
+        <div class="content-left">
+          <h3>What the Agents Extract</h3>
+          <ul>
+            <li><strong>Key Points</strong> — The 3-5 most important takeaways
+              <ul><li>Filtered for relevance to your topic and audience</li></ul>
+            </li>
+            <li><strong>Notable Quotes</strong> — Impactful statements with attribution
+              <ul><li>Ready to drop into quote slide layouts</li></ul>
+            </li>
+            <li><strong>Data &amp; Statistics</strong> — Numbers that support the narrative
+              <ul><li>Formatted for callout and featured box slides</li></ul>
+            </li>
+            <li><strong>Narrative Threads</strong> — How each source connects to the story</li>
+          </ul>
+        </div>
+        <div class="content-right">
+          <h3>Why Parallel?</h3>
+          <p>Each reference document gets its own AI agent running simultaneously. A deck with 10 source files doesn't take 10x longer — all analyses happen at once.</p>
+          <p class="text-light">Result: faster generation, deeper analysis per source.</p>
+        </div>
+        <aside class="notes">This is the key architectural decision. Instead of processing documents sequentially, each source gets its own subagent. They all run in parallel, extracting structured information that feeds into the synthesis phase. This means you can throw 10 PDFs, 5 transcripts, and a dozen markdown files at it, and it processes them all simultaneously.</aside>
+      </section>
+
+      <!-- Slide 7: Three Column — Outputs -->
+      <section class="slide-three-col">
+        <h1>Three Outputs, One Command</h1>
+        <div class="columns">
+          <div>
+            <h2>presentation.html</h2>
+            <p>Self-contained reveal.js deck. Open in any browser — no server, no dependencies. Includes embedded CSS theme, SVG decorations, and speaker notes.</p>
+          </div>
+          <div>
+            <h2>speaker-notes.md</h2>
+            <p>Full presenter script in markdown. 2-4 sentences per slide in a conversational tone. Use it as-is or as a starting point for your own delivery.</p>
+          </div>
+          <div>
+            <h2>outline.md</h2>
+            <p>Slide-by-slide structure overview. Layout type, title, content summary, and notes for each slide. Approved before generation begins.</p>
+          </div>
+        </div>
+        <aside class="notes">You get three files. The HTML is completely self-contained — no Node.js, no npm, no local server. Just open the file. The speaker notes give you a full script you can rehearse from. And the outline is generated first so you can approve the structure before the skill builds the full deck.</aside>
+      </section>
+
+      <!-- Slide 8: Divider Diamond -->
+      <section class="slide-divider-diamond">
+        <h1><em>23 Layout Types</em></h1>
+        <h2>Every slide has a purpose</h2>
+        <aside class="notes">Let's look at the visual toolkit. The skill has 23 distinct layout types, each designed for a specific type of content.</aside>
+      </section>
+
+      <!-- Slide 9: Two Column — Layout Categories -->
+      <section class="slide-two-col">
+        <h1>Layout Categories</h1>
+        <div class="columns">
+          <div>
+            <h2>Structural Slides</h2>
+            <ul>
+              <li>Cover (Lumin, Dark, Clock)
+                <ul><li>3 variants for different opening styles</li></ul>
+              </li>
+              <li>Agenda
+                <ul><li>Numbered list on lumin background</li></ul>
+              </li>
+              <li>Section Dividers
+                <ul><li>4 SVG patterns: chevrons, diamonds, mountains, gradient</li></ul>
+              </li>
+              <li>Closing
+                <ul><li>Logo + tagline for Q&amp;A</li></ul>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Content Slides</h2>
+            <ul>
+              <li>One Column (Light &amp; Dark)
+                <ul><li>Standard bullet slides</li></ul>
+              </li>
+              <li>Two &amp; Three Column
+                <ul><li>Comparisons, triads, side-by-side</li></ul>
+              </li>
+              <li>Content + Featured / Quote
+                <ul><li>Split layouts with emphasis cards</li></ul>
+              </li>
+              <li>Tables, Callouts, Full Quotes
+                <ul><li>Data, stats, and testimonials</li></ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">The layouts fall into two groups. Structural slides create rhythm — they're the covers, dividers, and closings that frame your story. Content slides carry the information. The skill automatically varies between these to keep the audience engaged. The rule is: never more than 3 of the same layout in a row, and aim for a 60/40 split between content and visual slides.</aside>
+      </section>
+
+      <!-- Slide 10: Full Table — Layout Reference -->
+      <section class="slide-table-full">
+        <h1>Layout Quick Reference</h1>
+        <h2>The skill selects the right layout for each slide's content</h2>
+        <table class="sysdig-table">
+          <thead>
+            <tr>
+              <th>Content Type</th>
+              <th>Layout</th>
+              <th class="col-highlight">CSS Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Opening slide</td><td>Cover (Lumin / Dark / Clock)</td><td class="col-highlight">slide-cover-*</td></tr>
+            <tr><td>Agenda / outline</td><td>Agenda</td><td class="col-highlight">slide-agenda</td></tr>
+            <tr><td>Key points</td><td>One Column (Light / Dark)</td><td class="col-highlight">slide-one-col[-dark]</td></tr>
+            <tr><td>Points + stat</td><td>Content + Featured</td><td class="col-highlight">slide-content-featured</td></tr>
+            <tr><td>Points + testimonial</td><td>Content + Quote</td><td class="col-highlight">slide-content-quote</td></tr>
+            <tr><td>Comparison</td><td>Two / Three Column</td><td class="col-highlight">slide-two-col / -three-col</td></tr>
+            <tr><td>Data table</td><td>Table / Full Table</td><td class="col-highlight">slide-table[-full]</td></tr>
+            <tr><td>Bold statement</td><td>Callout (Dark / Lumin)</td><td class="col-highlight">slide-callout-*</td></tr>
+            <tr><td>Impact quote</td><td>Quote</td><td class="col-highlight">slide-quote</td></tr>
+            <tr><td>Section break</td><td>Divider (4 variants)</td><td class="col-highlight">slide-divider-*</td></tr>
+          </tbody>
+        </table>
+        <aside class="notes">Here's the full reference table. The skill uses this mapping internally — when it decides a slide needs a comparison, it picks Two Column. When it has a powerful quote, it uses the Quote layout. When it needs to break between sections, it rotates through the four divider patterns. You can override these choices in the outline review step.</aside>
+      </section>
+
+      <!-- Slide 11: Divider Mountain -->
+      <section class="slide-divider-mountain">
+        <h1><em>Getting Started</em></h1>
+        <h2>Install in 30 seconds</h2>
+        <aside class="notes">Let's get you up and running. Installation takes two commands.</aside>
+      </section>
+
+      <!-- Slide 12: Content + Quote — Installation -->
+      <section class="slide-content-quote">
+        <h1>Installation</h1>
+        <div class="content-left">
+          <h3>As a Claude Code Plugin</h3>
+          <ul>
+            <li>Add the marketplace
+              <ul><li><strong>/plugin marketplace add alecron/sysdig-slide-generator</strong></li></ul>
+            </li>
+            <li>Install the plugin
+              <ul><li><strong>/plugin install sysdig-slide-generator</strong></li></ul>
+            </li>
+          </ul>
+          <h3>As a Local Skill</h3>
+          <ul>
+            <li>Clone and symlink
+              <ul><li><strong>git clone</strong> the repo, then symlink into <strong>~/.claude/skills/</strong></li></ul>
+            </li>
+          </ul>
+        </div>
+        <div class="quote-card">
+          <div class="sysdig-quote-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#2B2D30"/><text x="32" y="44" text-anchor="middle" fill="white" font-family="Georgia,serif" font-size="36" font-weight="bold">&ldquo;</text></svg>
+          </div>
+          <p class="quote-text">I described what I needed, pointed it at my reference folder, and had a polished 16-slide deck in minutes. The speaker notes alone saved me an hour.</p>
+          <p class="quote-attribution">Early Adopter</p>
+        </div>
+        <aside class="notes">Two ways to install. The plugin method is the cleanest — two slash commands and you're done. The skill auto-activates whenever you ask Claude Code to create a presentation. Alternatively, clone the repo and symlink it into your skills directory. Both methods give you the same functionality.</aside>
+      </section>
+
+      <!-- Slide 13: Callout Lumin -->
+      <section class="slide-callout-lumin">
+        <p class="eyebrow">THE RESULT</p>
+        <h1>Describe your topic. Get a branded deck. Present with confidence.</h1>
+        <aside class="notes">That's the value proposition in one sentence. You focus on the message. The skill handles the formatting, the layout choices, the visual consistency, and the speaker notes. Every deck comes out looking like it was hand-crafted by the design team.</aside>
+      </section>
+
+      <!-- Slide 14: One Column Dark — What's Next -->
+      <section class="slide-one-col-dark">
+        <h1>What's on the Roadmap</h1>
+        <h2>Coming soon</h2>
+        <ul>
+          <li><strong>Real Sysdig SVG logo</strong> — Replace text placeholders with the actual logo</li>
+          <li><strong>Image insertion</strong> — Product screenshots and architecture diagrams in slides</li>
+          <li><strong>Fragment animations</strong> — Progressive reveal for bullet points</li>
+          <li><strong>Chart generation</strong> — Auto-generate visualizations from data</li>
+          <li><strong>Marp fallback</strong> — Markdown output for Google Slides import</li>
+        </ul>
+        <aside class="notes">The skill is at version 0.1.0 and already covers the full workflow. Here's what's coming next. The logo is the highest priority — right now it's a text placeholder. Image support will unlock the screenshot and diagram layouts. And the Marp fallback will give you a path to Google Slides if you need collaborative editing.</aside>
+      </section>
+
+      <!-- Slide 15: Quote -->
+      <section class="slide-quote">
+        <div class="quote-card">
+          <div class="sysdig-quote-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#2B2D30"/><text x="32" y="44" text-anchor="middle" fill="white" font-family="Georgia,serif" font-size="36" font-weight="bold">&ldquo;</text></svg>
+          </div>
+          <p class="quote-text">This presentation was <span class="sysdig-highlight"><strong>generated by the skill it describes</strong></span>. Every slide, every layout, every speaker note — built by AI following the Sysdig visual identity.</p>
+          <p class="quote-attribution">Meta-Proof of Concept</p>
+        </div>
+        <aside class="notes">Here's the fun part. This entire deck — the one you're looking at right now — was generated by the Sysdig Slide Generator skill. It's proof that the tool works. Every layout type you've seen, every speaker note you've read, was produced by the same AI pipeline the skill uses for any topic.</aside>
+      </section>
+
+      <!-- Slide 16: Closing -->
+      <section class="slide-closing">
+        <div class="logo">sysdig</div>
+        <p class="tagline">SECURE EVERY SECOND</p>
+        <aside class="notes">Thank you. The skill is open source and available as a Claude Code plugin. Try it on your next presentation — just ask Claude to create slides and point it at your references. Questions?</aside>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="sysdig-footer">
+      <span class="footer-text">Sysdig Inc. Proprietary Information</span>
+      <span class="footer-logo">sysdig</span>
+      <span class="footer-divider"></span>
+      <span class="footer-page">1</span>
+    </div>
+  </div>
+
+  <!-- reveal.js core JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
+
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: false,
+      plugins: [RevealNotes],
+      width: 1920,
+      height: 1080,
+      margin: 0,
+      center: false,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      transitionSpeed: 'default',
+      pdfSeparateFragments: false,
+      display: 'flex',
+      showNotes: false,
+    });
+
+    Reveal.on('slidechanged', event => {
+      const pageEl = document.querySelector('.footer-page');
+      if (pageEl) pageEl.textContent = event.indexh + 1;
+      const footer = document.querySelector('.sysdig-footer');
+      const currentSlide = event.currentSlide;
+      const hideOnClasses = [
+        'slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock', 'slide-closing',
+        'slide-divider-chevron', 'slide-divider-diamond', 'slide-divider-mountain', 'slide-divider-gradient'
+      ];
+      footer.style.display = hideOnClasses.some(cls => currentSlide.classList.contains(cls)) ? 'none' : 'flex';
+    });
+
+    Reveal.on('ready', event => {
+      const footer = document.querySelector('.sysdig-footer');
+      const firstSlide = event.currentSlide;
+      const hideOnClasses = ['slide-cover-lumin', 'slide-cover-dark', 'slide-cover-clock', 'slide-closing'];
+      footer.style.display = hideOnClasses.some(cls => firstSlide.classList.contains(cls)) ? 'none' : 'flex';
+    });
+  </script>
+</body>
+</html>
