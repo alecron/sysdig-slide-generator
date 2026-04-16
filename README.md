@@ -2,6 +2,8 @@
 
 A Claude Code plugin that generates professional Sysdig-branded [reveal.js](https://revealjs.com/) presentations from reference materials. Provide a topic, audience, and optional source documents (PDFs, transcripts, markdown) and the skill orchestrates parallel AI agents to analyze references, synthesize content, and produce a self-contained HTML slide deck matching the Sysdig corporate visual identity.
 
+> **WARNING:** This project does NOT create Google Slides or PowerPoint files. It generates HTML presentations using the reveal.js framework. We are working towards Google Slides export and editing support, but it is not available yet.
+
 ## What You Get
 
 - **`presentation.html`** -- Self-contained reveal.js deck (open in any browser, no server needed)
@@ -95,10 +97,6 @@ Once installed, the skill activates when you ask Claude Code to create a present
 | Arrow keys | Navigate |
 
 **PDF Export:** Append `?print-pdf` to the URL in Chrome, then Print > Save as PDF (landscape, no margins, background graphics enabled).
-
-## Contributing
-
-See [ROADMAP.md](ROADMAP.md) for planned improvements and open tasks. See [AGENTS.md](AGENTS.md) for development conventions.
 
 ## License
 

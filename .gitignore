@@ -3,3 +3,11 @@
 pages/
 node_modules/
 *.tmp
+
+# Generated output files
+**/presentation.html
+**/speaker-notes.md
+**/outline.md
+
+# Local-only files
+ROADMAP.md
