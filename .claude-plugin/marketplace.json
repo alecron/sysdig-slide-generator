@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "sysdig-slide-generator",
-      "source": ".",
+      "source": "./",
       "description": "AI-powered Sysdig-branded slide generator using reveal.js",
       "version": "0.1.0",
       "keywords": [
